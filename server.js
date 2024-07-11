@@ -5,7 +5,7 @@ dotenv.config();
 import cookieParser from 'cookie-parser';
 import ticketRouter from './routes/ticketsRoutes.js';
 import authRouter from './routes/authRoutes.js';
-import path from path;
+import path from 'path';
 
 const app=express();
 
