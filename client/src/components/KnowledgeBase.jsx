@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../App";
+import { Link } from "react-router-dom";
 
 const KnowledgeBase = (props) => {
   const [resolvedtickets, setResolvedtickets] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("date_desc"); // Default sort by date descending
+  const [sortBy, setSortBy] = useState("date_desc"); 
 
   useEffect(() => {
     getTickets();
@@ -61,26 +62,24 @@ const KnowledgeBase = (props) => {
         </select>
       </div>
       <ol style={{ listStyle: 'none', padding: '0' }}>
-        {filteredTickets.map((resolvedticket) => (
-          <li key={resolvedticket.ticket_id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff' }}>
+        {filteredTickets.map((tickets) => (
+          <li key={tickets.ticket_id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff' }}>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Title:</strong> {resolvedticket.title}
+              <strong>Title:</strong> {tickets.title}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Description:</strong> {resolvedticket.description}
+              <strong>Description:</strong> {tickets.description}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Resolution description:</strong> {resolvedticket.resolution_description}
+              <strong>Status:</strong> {tickets.status}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Status:</strong> {resolvedticket.status}
-            </div>
-            <div style={{ marginBottom: '10px' }}>
-              <strong>Resolved by:</strong> {resolvedticket.resolved_by}
+              <strong>Resolved by:</strong> {tickets.resolved_by}
             </div>
             <div>
-              <strong>Resolved at:</strong> {new Date(resolvedticket.resolved_at).toLocaleString()}
+              <strong>Resolved at:</strong> {new Date(tickets.resolved_at).toLocaleString()}
             </div>
+            <Link to={`/dashboard/${tickets.ticket_id}`} style={{ marginTop: '10px', display: 'inline-block', padding: '8px 16px', fontSize: '14px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', textDecoration: 'none' }}>Ticket History</Link>
           </li>
         ))}
       </ol>
