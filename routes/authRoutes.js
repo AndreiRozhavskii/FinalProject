@@ -18,7 +18,7 @@ authRouter.get('/verify', verifyToken,(req,res)=>{
     const userid = req.userid;
     const useremail=req.useremail;
     const userrole=req.userrole;
-    const secret = process.env.ACCESS_TOKEN_SECRET;
+    const secret = process.env.ACCESS_TOKEN+'';
 
     const accessToken=jwt.sign({userid,useremail,userrole},secret,{expiresIn:'36000s'})
 
