@@ -7,7 +7,7 @@ export const verifyToken = (req,res,next)=>{
 
     if(!accessToken)return res.status(401).json({msg:'unauthorized'})
 
-    jwt.verify(accessToken,process.env.ACCESS_TOKEN_SECRET,(err,decode) => {
+    jwt.verify(accessToken,process.env.ACCESS_TOKEN+'',(err,decode) => {
         if(err) return res.status(403).json({msg:'forbidden'})
 
         req.userid = decode.userid;
