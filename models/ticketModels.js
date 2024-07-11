@@ -26,34 +26,25 @@ export const createTicket = async(title, description, priority,user_id) =>{
 export const resolveTicket = async(ticket_id,user_id)=>{
     return db('tickets').where({ticket_id}).update({status:'solved',resolved_at:new Date(),resolved_by:user_id})
 }
-// async (ticket_id, resolutionDescription, resolvedBy) => {
-    
-//     return db.transaction(async trx => {
-      
-//       const ticket = await trx('tickets').where({ ticket_id }).first();
-  
-//       if (!ticket) {
-//         throw new Error(`Ticket with id ${ticket_id} not found`);
-//       }
-  
-//       if (ticket.status !== 'solved') {
-//         throw new Error(`Ticket status is not solved`);
-//       }
-  
-      
-//       await trx('resolvedtickets').insert({
-//         ticket_id: ticket.ticket_id,
-//         resolution_description: resolutionDescription,
-//         resolved_by: resolvedBy,
-//         resolved_at: new Date(), 
-//       });
-  
-//       // Удаляем тикет из таблицы tickets
-//       await trx('tickets').where({ ticket_id }).del();
 
-//       await trx.commit()
-//     });
-//   };
+//knowledgebase
+
+export const getResolvedTicketsByStatus = async () => {
+    return db('tickets')
+        .select(
+            'tickets.ticket_id',
+            'tickets.title',
+            'tickets.description',
+            'tickets.status',
+            'users.username as created_by_username',
+            'tickets.created_at',
+            'resolver.username as resolved_by_username',
+            'tickets.resolved_at'
+        )
+        .join('users', 'tickets.user_id', 'users.user_id')
+        .leftJoin('users as resolver', 'tickets.resolved_by', 'resolver.user_id')
+        .where('tickets.status', 'solved');  
+};
 
 
 
