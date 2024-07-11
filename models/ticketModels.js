@@ -43,25 +43,12 @@ export const getResolvedTicketsByStatus = async () => {
         )
         .join('users', 'tickets.user_id', 'users.user_id')
         .leftJoin('users as resolver', 'tickets.resolved_by', 'resolver.user_id')
-        .where('tickets.status', 'solved');  
-};
-
-
-
-
-
-//knowledgebase
-
-export const getResolvedTicketsByStatus = async () => {
-        return db('tickets').select('title','description','status','resolved_by', 'resolved_at').where('status','solved')
-        
+        .where('tickets.status', 'solved');
 };
 
 
   //CHAT
-  export const getTicketByID = async (ticket_id) => {
-    return db('tickets').where({ticket_id}).first()
-  }
+ 
 
   export const addMessage = async (ticket_id, from_user_id, to_user_id, text) => {
     return db('messages').insert({
@@ -92,19 +79,4 @@ export const getTicketMessages = async (ticket_id) => {
 export const getCurrentTicket = async(ticket_id)=>{
     return  db('tickets').where({ticket_id}).select('ticket_id', 'title', 'description', 'status');
 };
-// export const getCurrentTicket = async(ticket_id)=>{
-//     return db('tickets')
-//     .select(
-//         'tickets.title', 
-//         'tickets.description', 
-//         'tickets.status',
-//         'messages.text',
-//         'messages.created_at',
-//         'messages.from_user_id ',
-//         'messages.to_user_id '
-//       )
-//       .from('tickets')
-//       .join('messages', 'tickets.ticket_id', 'messages.ticket_id')
-//       .join('users as from_user', 'messages.from_user_id', 'from_user.user_id')
-//       .join('users as to_user', 'messages.to_user_id', 'to_user.user_id')
-// };
+
