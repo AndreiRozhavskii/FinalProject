@@ -48,7 +48,9 @@ export const getResolvedTicketsByStatus = async () => {
 
 
   //CHAT
- 
+  export const getTicketByID = async (ticket_id) => {
+    return db('tickets').where({ticket_id}).first()
+  }
 
   export const addMessage = async (ticket_id, from_user_id, to_user_id, text) => {
     return db('messages').insert({
@@ -79,4 +81,3 @@ export const getTicketMessages = async (ticket_id) => {
 export const getCurrentTicket = async(ticket_id)=>{
     return  db('tickets').where({ticket_id}).select('ticket_id', 'title', 'description', 'status');
 };
-
