@@ -22,7 +22,7 @@ const Login = ({ page }) => {
           BASE_URL + "/login",
           {
             email,
-            password:"123456",
+            password,
           },
           {
             withCredentials: true,
