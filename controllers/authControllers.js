@@ -24,7 +24,7 @@ export const _login=async(req,res)=>
         const useremail=user[0].email;
         const userrole=user[0].role_id;
         // console.log('login userrole',userrole);
-        const secret = process.env.ACCESS_TOKEN_SECRET;
+        const secret = process.env.ACCESS_TOKEN+'';
 
         const accessToken=jwt.sign({userid,useremail,userrole},secret,{expiresIn:'7d'})
 
