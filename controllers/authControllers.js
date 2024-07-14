@@ -1,4 +1,4 @@
-import {login, register, getAllUsers, deleteUser} from '../models/authModels.js';
+import {login, register, getAllUsers, deleteUser, getRoleName} from '../models/authModels.js';
 import  bcrypt  from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
@@ -23,7 +23,7 @@ export const _login=async(req,res)=>
         const userid = user[0].user_id;
         const useremail=user[0].email;
         const userrole=user[0].role_id;
-        // console.log('login userrole',userrole);
+        
         const secret = process.env.ACCESS_TOKEN+'';
 
         const accessToken=jwt.sign({userid,useremail,userrole},secret,{expiresIn:'7d'})
@@ -41,23 +41,29 @@ export const _login=async(req,res)=>
     }
 
 }
-    export const _register =async(req,res)=>{
-    const {username,email,password}=req.body;
-    const loweremail = email.toLowerCase();
 
-    //encrypt the password
+export const _register = async (req, res) => {
+  const { username, email, password, role_name } = req.body;
+  const loweremail = email.toLowerCase();
+
+  try {
+    
+    const role = await getRoleName(role_name);
+
+    if (!role) {
+      return res.status(404).json({ msg: 'Role not found' });
+    }
 
     const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password + "", salt)
+    const hash = bcrypt.hashSync(password + '', salt);
 
-    try {
-        const user = await register(username, loweremail, hash);
-        res.json(user);
-    } catch (error) {
-        console.log(error);
-        res.status(404).json({msg:"email exists"})
-        
-    }
+   
+    const user = await register(username, loweremail, hash, role.role_id);
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Server error' });
+  }
 };
 
 
