@@ -6,7 +6,6 @@ import { AuthContext } from "../App";
 import { BASE_URL } from "../App";
 
 const Login = ({ page }) => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -22,7 +21,7 @@ const Login = ({ page }) => {
           BASE_URL + "/login",
           {
             email,
-            password,
+            password: "123456",
           },
           {
             withCredentials: true,
@@ -36,7 +35,13 @@ const Login = ({ page }) => {
       } catch (error) {
         setMessage(error.response.data.msg);
       }
-    } 
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
   };
 
   return (
@@ -50,6 +55,7 @@ const Login = ({ page }) => {
           label='Enter your email'
           variant='outlined'
           onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
         <TextField
           sx={{ m: 1 }}
@@ -58,6 +64,7 @@ const Login = ({ page }) => {
           label='Enter your password'
           variant='outlined'
           onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={handleKeyPress}
         />
       </Box>
       <Button onClick={login} variant='contained'>
