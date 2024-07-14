@@ -18,7 +18,7 @@ const Register = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post(BASE_URL + "/dashboard/register", 
+          const response = await axios.post(BASE_URL + "/userdashboard/register", 
           { 
             username, 
             email, 
@@ -30,7 +30,7 @@ const Register = () => {
           if (response.status === 200) {
             setMessage('User registered successfully');
             
-            navigate('/dashboard');
+            navigate('/dashboard/register');
           }
         } catch (error) {
           console.log(error);
