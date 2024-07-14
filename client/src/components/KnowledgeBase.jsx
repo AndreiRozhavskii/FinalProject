@@ -62,24 +62,24 @@ const KnowledgeBase = (props) => {
         </select>
       </div>
       <ol style={{ listStyle: 'none', padding: '0' }}>
-        {filteredTickets.map((tickets) => (
-          <li key={tickets.ticket_id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff' }}>
+        {filteredTickets.map((ticket) => (
+          <li key={ticket.ticket_id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '4px', backgroundColor: '#fff' }}>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Title:</strong> {tickets.title}
+              <strong>Title:</strong> {ticket.title}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Description:</strong> {tickets.description}
+              <strong>Description:</strong> {ticket.description}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Status:</strong> {tickets.status}
+              <strong>Status:</strong> {ticket.status}
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <strong>Resolved by:</strong> {tickets.resolved_by}
+              <strong>Resolved by:</strong> {ticket.resolved_by_username}
             </div>
             <div>
-              <strong>Resolved at:</strong> {new Date(tickets.resolved_at).toLocaleString()}
+              <strong>Resolved at:</strong> {new Date(ticket.resolved_at).toLocaleString()}
             </div>
-            <Link to={`/dashboard/${tickets.ticket_id}`} style={{ marginTop: '10px', display: 'inline-block', padding: '8px 16px', fontSize: '14px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', textDecoration: 'none' }}>Ticket History</Link>
+            <Link to={`/dashboard/${ticket.ticket_id}`} style={{ marginTop: '10px', display: 'inline-block', padding: '8px 16px', fontSize: '14px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: '4px', textDecoration: 'none' }}>Ticket History</Link>
           </li>
         ))}
       </ol>
