@@ -73,10 +73,9 @@ export const _resolveTicket = async (req, res) => {
 //get resolved ticket
 
 export const _getResolvedTicketsByStatus = async (req, res) => {
-    const { status } = req.params;
     
     try {
-        const resolvedTickets = await getResolvedTicketsByStatus(status);
+        const resolvedTickets = await getResolvedTicketsByStatus();
         res.status(200).json(resolvedTickets);
     } catch (error) {
         console.error(error);
