@@ -11,7 +11,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(BASE_URL + "/dashboard/users", {
+        const response = await axios.get(BASE_URL + "/userdashboard/users", {
             withCredentials: true, 
           });
         setUsers(response.data);
@@ -26,7 +26,7 @@ const Users = () => {
 
   const handleDeleteUser = async (user_id) => {
     try {
-      const data = await axios.delete(BASE_URL + `/dashboard/delete/${user_id}`, {
+      const data = await axios.delete(BASE_URL + `/userdashboard/delete/${user_id}`, {
         withCredentials: true, 
       });
       
