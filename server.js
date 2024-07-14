@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use('/dashboard', ticketRouter);
-app.use('/dashboard', authRouter);
+app.use('/userdashboard', authRouter);
 app.use( authRouter);
 
 app.listen(process.env.PORT||3002,()=>{
