@@ -20,7 +20,7 @@ const Register = () => {
           username,
           email,
           password,
-          role_name, // Передаем role_name в запросе
+          role_name, 
         },
         {
           withCredentials: true,
@@ -117,8 +117,8 @@ const Register = () => {
           }}
         >
           <option value="">Select role</option>
-          <option value="admin">Admin</option> {/* Измененные значения option */}
-          <option value="user">User</option> {/* Измененные значения option */}
+          <option value="admin">admin</option> 
+          <option value="user">user</option> 
         </select>
 
         <button
