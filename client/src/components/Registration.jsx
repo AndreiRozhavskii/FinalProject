@@ -117,8 +117,8 @@ const Register = () => {
           }}
         >
           <option value="">Select role</option>
-          <option value="Admin">Admin</option> {/* Измененные значения option */}
-          <option value="User">User</option> {/* Измененные значения option */}
+          <option value="admin">Admin</option> {/* Измененные значения option */}
+          <option value="user">User</option> {/* Измененные значения option */}
         </select>
 
         <button
