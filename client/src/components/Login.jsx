@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, Typography, Link as MuiLink } from "@mui/material";
 import { AuthContext } from "../App";
 import { BASE_URL } from "../App";
 
@@ -45,11 +45,31 @@ const Login = ({ page }) => {
   };
 
   return (
-    <div>
-      <h2>{page}</h2>
-      <Box component={"form"} sx={{ m: 1 }} autoComplete='off'>
+    <Box 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        textAlign: 'center',
+      }}
+    >
+      <Typography variant="h4" component="h1" gutterBottom>
+        Welcome to ServiceDesk App
+      </Typography>
+      <Box 
+        component="form" 
+        sx={{ 
+          width: '300px', 
+          margin: '20px 0', 
+          display: 'flex', 
+          flexDirection: 'column' 
+        }} 
+        autoComplete='off'
+      >
         <TextField
-          sx={{ m: 1 }}
+          sx={{ mb: 2 }}
           id='email'
           type='email'
           label='Enter your email'
@@ -58,7 +78,7 @@ const Login = ({ page }) => {
           onKeyPress={handleKeyPress}
         />
         <TextField
-          sx={{ m: 1 }}
+          sx={{ mb: 2 }}
           id='password'
           type='password'
           label='Enter your password'
@@ -66,12 +86,31 @@ const Login = ({ page }) => {
           onChange={(e) => setPassword(e.target.value)}
           onKeyPress={handleKeyPress}
         />
+        <Button onClick={login} variant='contained'>
+          {page}
+        </Button>
       </Box>
-      <Button onClick={login} variant='contained'>
-        {page}
-      </Button>
-      <div>{message}</div>
-    </div>
+      {message && (
+        <Typography variant="body2" color="error">
+          {message}
+        </Typography>
+      )}
+      <Box 
+        sx={{
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+        }}
+      >
+        <Typography variant="body2" color="textSecondary">
+          2024 &copy; by{' '}
+          <MuiLink href="https://github.com/AndreiRozhavskii" target="_blank" rel="noopener">
+            AndreiR
+          </MuiLink>
+        </Typography>
+      </Box>
+    </Box>
   );
 };
+
 export default Login;
