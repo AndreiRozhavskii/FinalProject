@@ -1,5 +1,13 @@
-import { getAdminTickets, getUserTickets,getTicketByID, createTicket, resolveTicket, getResolvedTicketsByStatus,addMessage, getTicketMessages, getCurrentTicket } from "../models/ticketModels.js";
-import { getUserByRole_1 } from "../models/authModels.js";
+import { getAdminTickets,
+     getUserTickets, 
+     getTicketByID, 
+     createTicket, 
+     resolveTicket, 
+     getResolvedTicketsByStatus, 
+     addMessage, getTicketMessages, 
+     getCurrentTicket, 
+    isMessagesRead } from "../models/ticketModels.js";
+import { getAdminEmails, getUserRole, getLastResponder } from "../models/authModels.js";
 
 //get all tickets
 
@@ -91,23 +99,27 @@ export const _addMessage = async (req, res) => {
     const from_user_id = req.userid;
 
     try {
-        
         const ticket = await getTicketByID(ticket_id);
-        const to_user_id = ticket.user_id;
+        const ticket_owner_id = ticket.user_id;
 
-        if (from_user_id === to_user_id) {
-            
-            const usersWithRole_1 = await getUserByRole_1();
+        const from_user_role = await getUserRole(from_user_id);
 
-            for (const user of usersWithRole_1) {
-                await addMessage(ticket_id, from_user_id, user.user_id, text);
-            }
+        
+        if (from_user_role === 1) {
             
+            await addMessage(ticket_id, from_user_id, ticket_owner_id, text);
         } else {
             
-            await addMessage(ticket_id, from_user_id, to_user_id, text);
+            const last_responder = await getLastResponder(ticket_id);
+            if (last_responder) {
+               
+                await addMessage(ticket_id, from_user_id, last_responder.from_user_id, text);
+            } else {
+                return res.status(404).json({ message: 'No administrator has responded to this ticket yet.' });
+            }
         }
 
+    
         _getTicketMessages(req, res);
 
     } catch (error) {
