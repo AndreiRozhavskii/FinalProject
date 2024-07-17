@@ -24,6 +24,6 @@ export const getUserByRole_1 = () => {
 };
 
 export const getRoleName = (role_name) => {
-    return db('roles').select('role_id').where({role_name})
+    return db('roles').select('role_id').where({role_name}).first();
 }
 
