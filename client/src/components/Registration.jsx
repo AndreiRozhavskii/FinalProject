@@ -13,10 +13,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username,'username');
-    console.log(email,'email');
-    console.log(password,'password');
-    console.log(role_name,'role_name');
     try {
       const response = await axios.post(
        'http://localhost:3002/userdashboard/register',
