@@ -7,15 +7,19 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role_name, setRoleName] = useState(""); // Состояние для выбранной роли
+  const [role_name, setRoleName] = useState(""); 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(username,'username');
+    console.log(email,'email');
+    console.log(password,'password');
+    console.log(role_name,'role_name');
     try {
       const response = await axios.post(
-        BASE_URL + "/userdashboard/register",
+       'http://localhost:3002/userdashboard/register',
         {
           username,
           email,
@@ -108,7 +112,7 @@ const Register = () => {
         <select
           id="role_name"
           value={role_name}
-          onChange={(e) => setRoleName(e.target.value)} // Обработчик изменения выбора роли
+          onChange={(e) => setRoleName(e.target.value)} 
           style={{
             padding: "8px",
             fontSize: "16px",
