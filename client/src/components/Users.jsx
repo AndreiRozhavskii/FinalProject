@@ -12,8 +12,8 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(BASE_URL + "/userdashboard/users", {
-            withCredentials: true, 
-          });
+          withCredentials: true, 
+        });
         setUsers(response.data);
         
       } catch (error) {
@@ -43,7 +43,7 @@ const Users = () => {
       {users.map(user => (
         <div key={user.user_id} style={{ marginBottom: '10px', padding: '10px', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ flex: '1', marginRight: '10px' }}>
-            <strong>{user.username}</strong> ({user.email})
+            <strong>{user.username}</strong> ({user.email}) - <span>{user.role_name}</span>
           </div>
           <button
             onClick={() => handleDeleteUser(user.user_id)}
