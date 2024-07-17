@@ -8,6 +8,7 @@ const TicketDetail = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [ticket, setTicket] = useState(null);
+  const [lastResponder, setLastResponder] = useState(null);
 
   useEffect(() => {
     getTicketMessages();
@@ -28,12 +29,25 @@ const TicketDetail = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  };
+
   const getTicketMessages = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/dashboard/messages/${ticket_id}`, {
         withCredentials: true,
       });
-      setMessages(response.data);
+      const messages = response.data;
+      setMessages(messages);
+
+      if (messages.length > 0) {
+        const lastMessage = messages[messages.length - 1];
+        setLastResponder(lastMessage.from_username);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -80,6 +94,7 @@ const TicketDetail = () => {
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
         placeholder="Enter your message"
+        onKeyPress={handleKeyPress}
         style={{ width: '100%', padding: '8px', fontSize: '16px', marginBottom: '20px', border: '1px solid #ccc', borderRadius: '4px' }}
       />
       <button onClick={sendMessage} style={{ backgroundColor: '#007bff', color: '#fff', border: 'none', padding: '10px 20px', fontSize: '16px', borderRadius: '4px' }}>Send Message</button>
