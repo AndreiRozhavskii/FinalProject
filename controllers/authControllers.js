@@ -44,6 +44,7 @@ export const _login=async(req,res)=>
 
 export const _register = async (req, res) => {
   const { username, email, password, role_name } = req.body;
+  
   const loweremail = email.toLowerCase();
 
   try {
@@ -59,6 +60,7 @@ export const _register = async (req, res) => {
 
    
     const user = await register(username, loweremail, hash, role.role_id);
+
     res.json(user);
   } catch (error) {
     console.error(error);
