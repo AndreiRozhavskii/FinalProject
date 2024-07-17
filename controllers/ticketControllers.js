@@ -7,7 +7,7 @@ import { getAdminTickets,
      addMessage, getTicketMessages, 
      getCurrentTicket, 
     isMessagesRead } from "../models/ticketModels.js";
-import { getAdminEmails, getUserRole, getLastResponder } from "../models/authModels.js";
+import { getUserRole, getLastResponder } from "../models/authModels.js";
 
 //get all tickets
 
