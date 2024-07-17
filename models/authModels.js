@@ -21,9 +21,23 @@ export const deleteUser=(user_id)=>{
 
 export const getUserByRole_1 = () => {
     return db('users').where('role_id',1).select('*');
+    
 };
+
+export const getUserRole = async (user_id) => {
+    const user = await db('users').select('role_id').where({ user_id }).first();
+    return user.role_id;
+};
+
+export const getLastResponder = async (ticket_id) => {
+    return await db('messages')
+        .select('from_user_id')
+        .where({ ticket_id })
+        .orderBy('created_at', 'desc')
+        .first();
+};
+
 
 export const getRoleName = (role_name) => {
     return db('roles').select('role_id').where({role_name}).first();
 }
-
