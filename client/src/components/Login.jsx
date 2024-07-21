@@ -56,7 +56,7 @@ const Login = ({ page }) => {
       }}
     >
       <Typography variant="h4" component="h1" gutterBottom>
-        Welcome to ServiceDesk App
+        Welcome to HelpDesk App
       </Typography>
       <Box 
         component="form" 
